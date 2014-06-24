@@ -11,11 +11,10 @@
 class kr4 : public QWidget
 {
 	Q_OBJECT
-	std::ifstream inFile, inMP3;
-	std::ofstream outFile;
+	std::ifstream *inFile, *inMP3;
+	std::ofstream *outFile;
 	QString key;
 	char key_ceaser;
-	char buf, buf_mp3;
 	QString in_fname, out_fname, mp3_fname;
 	short int mode; //1-Ceaser, 2-Viginer, 3-Stenography, 4-GOST
 	QIntValidator *int_valid;
@@ -32,16 +31,16 @@ private slots:
 	void decript();
 
 private:
-	long filesize();
 	void check_OUT();
 	void check_KEY();
-	void sh_Ceaser();
-	void ds_Ceaser();
-	void sh_Vegener();
-	void ds_Vegener();
-	void sh_Stegan();
-	void ds_Stegan();
-	void dsh_GOST(bool Mode);
+	void set_Ceaser();
+	void get_Ceaser();
+	void set_Vegener();
+	void get_Vegener();
+	void set_Stegan();
+	void get_Stegan();
+	void set_GOST();
+	void get_GOST();
 	Ui::kr4Class ui;
 };
 
