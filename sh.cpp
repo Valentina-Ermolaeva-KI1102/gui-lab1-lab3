@@ -333,12 +333,12 @@ void dsh_GOST(std::ifstream *in, std::ofstream *out, bool Mode)
 		// вывод результата в файл
 		for (int q=0; q<4; q++)
 		{
-			buf = *((unsigned char*)&N1+q);
+            buf = *((unsigned char*)&N1+q);
 			out->write(&buf, sizeof(char));
 		}
 		for (int q=0; q<4; q++)
 		{
-			buf = *((unsigned char*)&N2+q);
+            buf = *((unsigned char*)&N2+q);
 			out->write(&buf, sizeof(char));
 		}
 	}
