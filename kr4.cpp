@@ -27,15 +27,15 @@ kr4::kr4(QWidget *parent)
 void kr4::check_IN()
 {
 	if(mode < 3)
-		in_fname = QFileDialog::getOpenFileName(this, tr("Open Input File"), "C:\ ", tr("Input Files (*.txt)"));
+        in_fname = QFileDialog::getOpenFileName(this, tr("Open Input File"), "C:\ "/*, tr("Input Files (*.txt)")*/);
 	else
-		in_fname = QFileDialog::getOpenFileName(this, tr("Open Input File"), "C:\ ", tr("Input Files (*.*)"));
+        in_fname = QFileDialog::getOpenFileName(this, tr("Open Input File"), "C:\ "/*, tr("Input Files (*.*)")*/);
 	ui.InFileEdit->setText(in_fname);
 }
 
 void kr4::check_MP3()
 {
-	mp3_fname = QFileDialog::getOpenFileName(this, tr("Open MP3 File"), "C:\ ", tr("MP3 Files (*.mp3)"));
+    mp3_fname = QFileDialog::getOpenFileName(this, tr("Open MP3 File"), "C:\ "/*, tr("MP3 Files (*.mp3)")*/);
 	ui.MusFileEdit->setText(mp3_fname);
 }
 
