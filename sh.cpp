@@ -186,7 +186,7 @@ long filesize(std::ifstream *in)
 	return length;
 }
 
-void dsh_GOST(std::ifstream *in, std::ofstream *out, bool Mode)
+void dsh_GOST(std::ifstream *in, std::ofstream *out, QString *key, bool Mode)
 {	
 	//таблица замен
 	unsigned char RepTable[8][16] =
@@ -199,17 +199,6 @@ void dsh_GOST(std::ifstream *in, std::ofstream *out, bool Mode)
 		0x0,0x1,0x2,0x3,0x4,0x5,0x6,0x7,0x8,0x9,0xA,0xB,0xC,0xD,0xE,0xF,
 		0x0,0x1,0x2,0x3,0x4,0x5,0x6,0x7,0x8,0x9,0xA,0xB,0xC,0xD,0xE,0xF,
 		0x0,0x1,0x2,0x3,0x4,0x5,0x6,0x7,0x8,0x9,0xA,0xB,0xC,0xD,0xE,0xF
-	};
-	unsigned long key[8] =
-	{
-		0x0123,
-		0x4567,
-		0x89AB,
-		0xCDEF,
-		0x0123,
-		0x4567,
-		0x89AB,
-		0xCDEF
 	};
 	char N[4], buf; // 32-разрядный накопитель,
 	unsigned long N1=0, N2=0, SUM232=0; // накопители N1, N2, и сумматор
@@ -272,7 +261,7 @@ void dsh_GOST(std::ifstream *in, std::ofstream *out, bool Mode)
 				c = 7;
 
 			// суммируем в сумматоре СМ1
-			SUM232 = key[c] + N1;
+			SUM232 = key->toLatin1().data()[c] + N1;
 
 			// заменяем по таблице замен
 			unsigned char first_byte=0,second_byte=0,rep_symbol=0;
@@ -333,12 +322,12 @@ void dsh_GOST(std::ifstream *in, std::ofstream *out, bool Mode)
 		// вывод результата в файл
 		for (int q=0; q<4; q++)
 		{
-            buf = *((unsigned char*)&N1+q);
+			buf = *((unsigned char*)&N1+q);
 			out->write(&buf, sizeof(char));
 		}
 		for (int q=0; q<4; q++)
 		{
-            buf = *((unsigned char*)&N2+q);
+			buf = *((unsigned char*)&N2+q);
 			out->write(&buf, sizeof(char));
 		}
 	}
