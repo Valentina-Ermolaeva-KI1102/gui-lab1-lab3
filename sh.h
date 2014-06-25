@@ -8,4 +8,4 @@ void ds_Vegener(std::ifstream *in, std::ofstream *out, QString *key);
 bool sh_Stegan(std::ifstream *in, std::ifstream *mp3, std::ofstream *out);
 void ds_Stegan(std::ifstream *in, std::ofstream *out);
 long filesize(std::ifstream *in);
-void dsh_GOST(std::ifstream *in, std::ofstream *out, bool Mode);
+void dsh_GOST(std::ifstream *in, std::ofstream *out, QString *key, bool Mode);
