@@ -14,35 +14,34 @@ kr4::kr4(QWidget *parent)
 	int_valid = new QIntValidator();
 	ui.KeyEdit->setValidator(int_valid);
 	ui.CheckMode->addItems(QStringList() << "Ceaser" << "Viginer" << "Steganography" << "GOST");
-	ui.CheckMP3_but->setEnabled(false);
 	ui.MusFileEdit->setEnabled(false);
 	ui.groupBox_2->setEnabled(false);
 	connect(ui.CheckMode, SIGNAL(currentIndexChanged(int)), this, SLOT(check_MODE(int)));
-	connect(ui.CheckIN_but, SIGNAL(clicked()), this, SLOT(check_IN()));
-	connect(ui.CheckMP3_but, SIGNAL(clicked()), this, SLOT(check_MP3()));
+	connect(ui.InFileEdit, SIGNAL(selectionChanged()), this, SLOT(check_IN()));
+	connect(ui.MusFileEdit, SIGNAL(selectionChanged()), this, SLOT(check_MP3()));
+	connect(ui.OutFileEdit, SIGNAL(selectionChanged()), this, SLOT(check_OUT()));
 	connect(ui.Encrip_but, SIGNAL(clicked()), this, SLOT(encript()));
 	connect(ui.Decrip_but, SIGNAL(clicked()), this, SLOT(decript()));
 }
 
 void kr4::check_IN()
 {
-	if(mode < 3)
-        in_fname = QFileDialog::getOpenFileName(this, tr("Open Input File"), "C:\ "/*, tr("Input Files (*.txt)")*/);
-	else
-        in_fname = QFileDialog::getOpenFileName(this, tr("Open Input File"), "C:\ "/*, tr("Input Files (*.*)")*/);
+	in_fname = QFileDialog::getOpenFileName(this, tr("Open Input File"), "C:\ ", tr("Input Files (*)"));
+	disconnect(ui.InFileEdit, SIGNAL(selectionChanged()), this, SLOT(check_IN()));
 	ui.InFileEdit->setText(in_fname);
+	connect(ui.InFileEdit, SIGNAL(selectionChanged()), this, SLOT(check_IN()));
 }
 
 void kr4::check_MP3()
 {
-    mp3_fname = QFileDialog::getOpenFileName(this, tr("Open MP3 File"), "C:\ "/*, tr("MP3 Files (*.mp3)")*/);
+	mp3_fname = QFileDialog::getOpenFileName(this, tr("Open Music File"), "C:\ ", tr("Music Files (*)"));
 	ui.MusFileEdit->setText(mp3_fname);
 }
 
 void kr4::check_OUT()
 {
-	out_fname = ui.OutFileEdit->text();
-	ui.OutFileEdit->clear();
+	out_fname = QFileDialog::getSaveFileName(this, tr("Create out File"), "C:\ ", tr("Out Files (*)"));
+	ui.OutFileEdit->setText(out_fname);
 }
 
 void kr4::check_MODE(int a)
@@ -54,24 +53,24 @@ void kr4::check_MODE(int a)
 	case 1:
 		ui.KeyEdit->setEnabled(true);
 		ui.KeyEdit->setValidator(int_valid);
-		ui.CheckMP3_but->setEnabled(false);
+		ui.KeyEdit->setMaxLength(16);
 		ui.MusFileEdit->setEnabled(false);
 		break;
 	case 2:
 		ui.KeyEdit->setEnabled(true);
 		ui.KeyEdit->setValidator(NULL);
-		ui.CheckMP3_but->setEnabled(false);
+		ui.KeyEdit->setMaxLength(1024);
 		ui.MusFileEdit->setEnabled(false);
 		break;
 	case 3:
 		ui.KeyEdit->setEnabled(false);
-		ui.CheckMP3_but->setEnabled(true);
 		ui.MusFileEdit->setEnabled(true);
 		break;
 	case 4:
-		ui.CheckMP3_but->setEnabled(false);
 		ui.MusFileEdit->setEnabled(false);
-		ui.KeyEdit->setEnabled(false);
+		ui.KeyEdit->setEnabled(true);
+		ui.KeyEdit->setValidator(NULL);
+		ui.KeyEdit->setMaxLength(8);
 		break;
 	}
 }
@@ -85,6 +84,10 @@ void kr4::check_KEY()
 		break;
 	case 2:
 		key = ui.KeyEdit->text();
+	case 4:
+		key = ui.KeyEdit->text();
+		if(key.length() < 8)
+			QMessageBox::warning(this, tr("Error"), tr("Short key."), QMessageBox::Ok);
 	default:
 		break;
 	}
@@ -132,7 +135,6 @@ void kr4::decript()
 
 void kr4::set_Ceaser()
 {	
-	check_OUT();
 	check_KEY();
 	if(in_fname == "" || out_fname == "")
 	{
@@ -151,7 +153,6 @@ void kr4::set_Ceaser()
 
 void kr4::get_Ceaser()
 {
-	check_OUT();
 	check_KEY();
 	if(in_fname == "" || out_fname == "")
 	{
@@ -172,7 +173,6 @@ void kr4::get_Ceaser()
 
 void kr4::set_Vegener()
 {
-	check_OUT();
 	check_KEY();
 	if(in_fname == "" || out_fname == "")
 	{
@@ -198,7 +198,6 @@ void kr4::set_Vegener()
 
 void kr4::get_Vegener()
 {
-	check_OUT();
 	check_KEY();
 	if(in_fname == "" || out_fname == "")
 	{
@@ -224,7 +223,6 @@ void kr4::get_Vegener()
 
 void kr4::set_Stegan()
 {
-	check_OUT();
 	if(in_fname == "" || out_fname == "" || mp3_fname == "")
 	{
 		QMessageBox::warning(this, tr("Error"), tr("Unknown one of the files being processed."), QMessageBox::Ok);
@@ -246,7 +244,6 @@ void kr4::set_Stegan()
 
 void kr4::get_Stegan()
 {
-	check_OUT();
 	if(out_fname == "" || mp3_fname == "")
 	{
 		QMessageBox::warning(this, tr("Error"), tr("Unknown one of the files being processed."), QMessageBox::Ok);
@@ -266,7 +263,9 @@ void kr4::get_Stegan()
 // функция, реализующая работу ГОСТ 28147-89 в режиме простой замены
 void kr4::set_GOST()
 {
-	check_OUT();
+	check_KEY();
+	if(key.length() < 8)
+		return;
 	if(in_fname == "" || out_fname == "")
 	{
 		QMessageBox::warning(this, tr("Error"), tr("Unknown one of the files being processed."), QMessageBox::Ok);
@@ -274,7 +273,7 @@ void kr4::set_GOST()
 	}
 	inFile->open(in_fname.toLatin1(), std::ios_base::binary | std::ios_base::in);
 	outFile->open(out_fname.toLatin1(), std::ios_base::binary | std::ios_base::out);
-	dsh_GOST(inFile, outFile, true);
+	dsh_GOST(inFile, outFile, &key, true);
 	inFile->clear();
 	outFile->clear();
 	inFile->close();
@@ -283,7 +282,9 @@ void kr4::set_GOST()
 
 void kr4::get_GOST()
 {
-	check_OUT();
+	check_KEY();
+	if(key.length() < 8)
+		return;
 	if(in_fname == "" || out_fname == "")
 	{
 		QMessageBox::warning(this, tr("Error"), tr("Unknown one of the files being processed."), QMessageBox::Ok);
@@ -291,7 +292,7 @@ void kr4::get_GOST()
 	}
 	inFile->open(in_fname.toLatin1(), std::ios_base::binary | std::ios_base::in);
 	outFile->open(out_fname.toLatin1(), std::ios_base::binary | std::ios_base::out);
-	dsh_GOST(inFile, outFile, false);
+	dsh_GOST(inFile, outFile, &key, false);
 	inFile->clear();
 	outFile->clear();
 	inFile->close();
