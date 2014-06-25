@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include <QIntValidator>
 #include <QMessageBox>
+#include <QEvent>
 #include "ui_kr4.h"
 #include <fstream>
 #include <stdlib.h>
@@ -26,12 +27,12 @@ public:
 private slots:
 	void check_IN();
 	void check_MP3();
+	void check_OUT();
 	void check_MODE(int a);
 	void encript();
 	void decript();
 
 private:
-	void check_OUT();
 	void check_KEY();
 	void set_Ceaser();
 	void get_Ceaser();
