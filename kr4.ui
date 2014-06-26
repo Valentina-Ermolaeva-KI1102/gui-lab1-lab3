@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>585</width>
-    <height>313</height>
+    <width>612</width>
+    <height>468</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,114 +17,111 @@
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>280</y>
+     <y>400</y>
      <width>151</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
-    <string>РЁРёС„СЂРѕРІР°С‚СЊ</string>
+    <string>Шифровать</string>
    </property>
   </widget>
   <widget class="QPushButton" name="Decrip_but">
    <property name="geometry">
     <rect>
      <x>230</x>
-     <y>280</y>
+     <y>400</y>
      <width>151</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
-    <string>Р Р°СЃС€РёС„СЂРѕРІР°С‚СЊ</string>
+    <string>Расшифровать</string>
    </property>
   </widget>
   <widget class="QPushButton" name="Exit_but">
    <property name="geometry">
     <rect>
      <x>420</x>
-     <y>280</y>
+     <y>400</y>
      <width>151</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
-    <string>Р’С‹С…РѕРґ</string>
+    <string>Выход</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="MusFileEdit">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>190</y>
+     <width>451</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>70</x>
      <y>40</y>
      <width>471</width>
-     <height>51</height>
+     <height>81</height>
     </rect>
    </property>
    <property name="title">
-    <string>Р’С…РѕРґРЅРѕР№ С„Р°Р№Р»</string>
+    <string>Входной файл</string>
    </property>
    <widget class="QLineEdit" name="InFileEdit">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
+      <y>50</y>
       <width>451</width>
       <height>20</height>
      </rect>
     </property>
-    <property name="toolTipDuration">
-     <number>-1</number>
-    </property>
     <property name="readOnly">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>100</y>
+     <x>70</x>
+     <y>140</y>
      <width>471</width>
-     <height>51</height>
+     <height>81</height>
     </rect>
    </property>
    <property name="title">
-    <string>Р¤Р°Р№Р» СЃ Р·РІСѓРєРѕРј (СЃС‚РµРіР°РЅРѕРіСЂР°С„РёСЏ)</string>
+    <string>Файл с звуком (стеганография)</string>
    </property>
-   <widget class="QLineEdit" name="MusFileEdit">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>451</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="readOnly">
-     <bool>false</bool>
-    </property>
-   </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox_3">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>220</y>
-     <width>471</width>
+     <x>320</x>
+     <y>310</y>
+     <width>221</width>
      <height>51</height>
     </rect>
    </property>
    <property name="title">
-    <string>Р’С‹С…РѕРґРЅРѕР№ С„Р°Р№Р»</string>
+    <string>Выходной файл</string>
    </property>
    <widget class="QLineEdit" name="OutFileEdit">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>451</width>
+      <width>201</width>
       <height>20</height>
      </rect>
     </property>
@@ -133,19 +130,19 @@
   <widget class="QGroupBox" name="groupBox_4">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>160</y>
+     <x>320</x>
+     <y>240</y>
      <width>221</width>
      <height>51</height>
     </rect>
    </property>
    <property name="title">
-    <string>РљР»СЋС‡ (С€РёС„СЂ Р¦РµР·Р°СЂСЏ/Р’РµР¶РµРЅРµСЂР°)</string>
+    <string>Ключ (шифр Цезаря/Веженера)</string>
    </property>
    <widget class="QLineEdit" name="KeyEdit">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>20</y>
       <width>201</width>
       <height>20</height>
@@ -156,19 +153,19 @@
   <widget class="QGroupBox" name="groupBox_5">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>160</y>
+     <x>70</x>
+     <y>240</y>
      <width>201</width>
      <height>51</height>
     </rect>
    </property>
    <property name="title">
-    <string>РњРµС‚РѕРґ С€РёС„СЂРѕРІР°РЅРёСЏ</string>
+    <string>Метод шифрования</string>
    </property>
    <widget class="QComboBox" name="CheckMode">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>20</y>
       <width>181</width>
       <height>22</height>
@@ -176,6 +173,43 @@
     </property>
    </widget>
   </widget>
+  <widget class="QPushButton" name="CheckIN_but">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>60</y>
+     <width>181</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Выбрать входной файл</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="CheckMP3_but">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>160</y>
+     <width>181</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Выбрать аудиофайл</string>
+   </property>
+  </widget>
+  <zorder>Encrip_but</zorder>
+  <zorder>Decrip_but</zorder>
+  <zorder>Exit_but</zorder>
+  <zorder>groupBox</zorder>
+  <zorder>groupBox_2</zorder>
+  <zorder>groupBox_3</zorder>
+  <zorder>groupBox_4</zorder>
+  <zorder>groupBox_5</zorder>
+  <zorder>CheckMP3_but</zorder>
+  <zorder>CheckIN_but</zorder>
+  <zorder>MusFileEdit</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -200,4 +234,3 @@
   </connection>
  </connections>
 </ui>
-
